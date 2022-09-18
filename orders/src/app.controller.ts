@@ -13,6 +13,7 @@ export class AppController {
 
   @MessagePattern('list-orders')
   async listOrders() {
+    console.log('EVENTO PROCESSADO');
     return this.appService.listOrders();
   }
 }
