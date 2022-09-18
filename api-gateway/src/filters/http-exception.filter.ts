@@ -24,11 +24,15 @@ export class AllExceptionsFilter implements ExceptionFilter {
     const message: any =
       exception instanceof HttpException ? exception.getResponse() : exception;
 
-    this.logger.error(
-      `Http Status: ${status} Error Message: ${JSON.stringify(
-        message.message,
-      )} `,
-    );
+    if (status >= 400 && status < 500) {
+      this.logger.warn(
+        `Http Status: ${status} | Url: ${request.url}| Error Message: ${message.message}, `,
+      );
+    } else if (status >= 500) {
+      this.logger.error(
+        `Http Status: ${status} | Url: ${request.url} | Error Message: ${message.message}, `,
+      );
+    }
 
     response.status(status).json({
       timestamp: new Date().toISOString(),
