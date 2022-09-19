@@ -10,6 +10,7 @@ async function bootstrap() {
     transport: Transport.RMQ,
     options: {
       urls: ['amqp://user:bitnami@localhost:5672/app'],
+      noAck: false,
       queue: 'app-backend',
     },
   });
