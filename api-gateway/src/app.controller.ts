@@ -1,11 +1,9 @@
 import {
-  BadRequestException,
   Body,
   Controller,
   Get,
-  HttpException,
-  Logger,
-  NotFoundException,
+  Inject,
+  LoggerService,
   Post,
 } from '@nestjs/common';
 import {
@@ -21,7 +19,7 @@ import { Observable } from 'rxjs';
 export class AppController {
   private client: ClientProxy;
 
-  constructor() {
+  constructor(@Inject('LOGGER') private logger: LoggerService) {
     this.client = ClientProxyFactory.create({
       transport: Transport.RMQ,
       options: {
