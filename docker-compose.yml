@@ -1,0 +1,21 @@
+services:
+  # orders:
+  #   build:
+  #     context: .
+  #     dockerfile:
+  #     target:
+  #    command
+  #    env_file
+  #    depends_on:
+  #    volumes
+  #     -node_modules
+  #     ports
+
+  orders-mongodb:
+    image: mongo:5.0.0
+    container_name: orders-mongodb
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=password123
+    ports:
+      - 27017:27017
