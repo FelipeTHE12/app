@@ -1,19 +1,15 @@
-import { Logger } from '@nestjs/common';
+import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { Transport } from '@nestjs/microservices';
 import { AppModule } from './app.module';
 
-const logger = new Logger('');
-
 async function bootstrap() {
-  const app = await NestFactory.createMicroservice(AppModule, {
-    transport: Transport.RMQ,
-    options: {
-      urls: ['amqp://user:bitnami@localhost:5672/app'],
-      noAck: false,
-      queue: 'app-backend',
-    },
-  });
+  const app = await NestFactory.createMicroservice(AppModule);
+
+  app.useGlobalPipes(new ValidationPipe());
+
+  const configService = app.get(ConfigService);
 
   app.listen();
 }

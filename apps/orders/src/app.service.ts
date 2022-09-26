@@ -1,33 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { Order } from './order';
+import { OrdersRepository } from './order.repository';
+import { Order } from './order.schema';
 
 @Injectable()
 export class AppService {
-  orders: Order[] = [
-    {
-      id: 1,
-      product: 'produto',
-      value: 30,
-      date: new Date(),
-      paid: false,
-    },
-    {
-      id: 2,
-      product: 'produto2',
-      value: 40,
-      date: new Date(),
-      paid: false,
-    },
-    {
-      id: 3,
-      product: 'produto3',
-      value: 50,
-      date: new Date(),
-      paid: false,
-    },
-  ];
+  constructor(private readonly ordersRepository: OrdersRepository) {}
 
-  listOrders() {
-    return this.orders;
+  async createOrder(body) {
+    await this.ordersRepository.create({
+      dateCreated: new Date(),
+      observation: 'pedido ttese',
+      paid: false,
+      price: 500,
+    });
+  }
+
+  async listOrders() {
+    return await this.ordersRepository.find({});
   }
 }
