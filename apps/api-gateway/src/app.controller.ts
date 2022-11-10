@@ -32,7 +32,8 @@ export class AppController {
 
   @Post('order')
   createOrder(@Body() body: any, @Ctx() context: RmqContext): void {
-    this.client.emit('create-order', {});
+    console.log('MSG DELIVERED');
+    this.client.emit('create-order', { teste: 'testando' });
   }
 
   @Get('order')

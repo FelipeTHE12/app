@@ -1,15 +1,9 @@
 services:
-  # orders:
-  #   build:
-  #     context: .
-  #     dockerfile:
-  #     target:
-  #    command
-  #    env_file
-  #    depends_on:
-  #    volumes
-  #     -node_modules
-  #     ports
+  rabbitmq:
+    image: docker.io/bitnami/rabbitmq:3.11
+    ports:
+      - '5672:5672'
+      - '15672:15672'
 
   orders-mongodb:
     image: mongo:5.0.0
